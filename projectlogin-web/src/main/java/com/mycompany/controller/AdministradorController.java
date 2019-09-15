@@ -14,20 +14,27 @@ import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 
 /**
- *
- * @author DaveHell
+ * @author Julián Parra
+ * @author Germán García
  */
 @Named
 @SessionScoped
-public class AdministradorController implements Serializable{
+public class AdministradorController implements Serializable {
 
+    /**
+     * Varialbe para llamar a la clase User del ejb
+     */
     private User user;
+
     /**
      * Creates a new instance of AdministradorController
      */
     public AdministradorController() {
     }
-    
+
+    /**
+     * Clase para validar el ingreso de session
+     */
     public void validarSesion() {
         try {
             FacesContext faces = FacesContext.getCurrentInstance();
@@ -38,33 +45,47 @@ public class AdministradorController implements Serializable{
                 faces.addMessage(null, msg);
                 faces.getExternalContext().getFlash().setKeepMessages(true);
                 faces.getExternalContext().redirect("/projectlogin-web/faces/index.xhtml");
-            }
-            else if(!usuario.getRol().equals("admin")){
+            } else if (!usuario.getRol().equals("admin")) {
                 FacesContext context = FacesContext.getCurrentInstance();
                 FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error",
                         "No tiene permisos para ingresar a esta sección del sitio.");
                 faces.addMessage(null, msg);
                 context.getExternalContext().getFlash().setKeepMessages(true);
-                faces.getExternalContext().redirect(usuario.getRol().toLowerCase()+"/inicio.xhtml");
+                faces.getExternalContext().redirect(usuario.getRol().toLowerCase() + "/inicio.xhtml");
             }
             user = usuario;
         } catch (Exception e) {
 
         }
     }
-    public String cerrarSesion(){
+
+    /**
+     * Clase para cerrar session
+     *
+     * @return
+     */
+    public String cerrarSesion() {
         FacesContext.getCurrentInstance().getExternalContext().invalidateSession();
         System.out.println("session cerrada");
         return "/index.xhtml?faces-redirect=true";
     }
 
+    /**
+     * Get del metodo user
+     *
+     * @return
+     */
     public User getUser() {
         return user;
     }
 
+    /**
+     * Set del metodo User
+     *
+     * @param user
+     */
     public void setUser(User user) {
         this.user = user;
     }
-    
-    
+
 }

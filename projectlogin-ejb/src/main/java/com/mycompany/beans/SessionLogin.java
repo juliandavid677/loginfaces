@@ -12,20 +12,32 @@ import java.util.List;
 import javax.ejb.Stateful;
 
 /**
- *
- * @author DaveHell
+ * @author Julián Parra
+ * @author Germán García
  */
 @Stateful
 public class SessionLogin implements SessionLoginLocal {
-
+    /**
+     * Variable privada encapsulada para un usuario
+     */
     private User usuario1;
+    /**
+     * Variable privada encapsulada para un usuario
+     */
     private User usuario2;
+    /**
+     * Creacion de la lista
+     */
     private List<User> listaUsuarios;
-
+    /**
+     * Inicializacion de la lista
+     */
     public SessionLogin() {
         listaUsuarios = new ArrayList();
     }
-
+    /**
+     * Metodo para agregar usuarios
+     */
     @Override
     public void agregarUsuarios() {
         usuario1 = new User("David", "admin", "david", "12345678");
@@ -37,6 +49,9 @@ public class SessionLogin implements SessionLoginLocal {
         System.out.println(listaUsuarios);
         
     }
+    /**
+     * Metodo para obtener los usuarios bajo la comparacion de datos
+     */
     @Override
     public User obtenerUsuario(String username, String pass){
         System.out.println(listaUsuarios);

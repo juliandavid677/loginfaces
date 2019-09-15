@@ -5,7 +5,6 @@
  */
 package com.mycompany.controller;
 
- 
 import com.mycompany.dto.User;
 import com.mycompany.interfaces.SessionLoginLocal;
 import java.io.Serializable;
@@ -17,21 +16,32 @@ import javax.enterprise.context.Dependent;
 import javax.enterprise.context.RequestScoped;
 import javax.faces.context.FacesContext;
 
-
 /**
- *
- * @author DaveHell
+ * @author Julián Parra
+ * @author Germán García
  */
 @Named
 @RequestScoped
-public class IndexController implements Serializable{
-    
-    private List<User> listaUsuarios;
+public class IndexController implements Serializable {
+
+    /**
+     * Varialbe de la lista listaUsuarios
+     */
+    private final List<User> listaUsuarios;
+    /**
+     * Varialbe privada de username
+     */
     private String username;
+    /**
+     * Varialbe privada de la contraseña
+     */
     private String pass;
-    
+    /**
+     * Variable de conexion a la interfaz de ejb
+     */
     @EJB
     SessionLoginLocal ejb;
+
     /**
      * Creates a new instance of IndexController
      */
@@ -39,39 +49,54 @@ public class IndexController implements Serializable{
         listaUsuarios = new ArrayList();
     }
 
-   public String iniciarSesion(){
+    /**
+     * Metodo de iniciar session
+     *
+     * @return
+     */
+    public String iniciarSesion() {
         User user;
         ejb.agregarUsuarios();
         user = ejb.obtenerUsuario(username, pass);
-        if(user!=null){
-            System.out.println("ruta" + " " +user.getRol().toLowerCase());
-            FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("user", user);            
-            return user.getRol()+"/inicio.xhtml?faces-redirect=true";
-        }else{
+        if (user != null) {
+            System.out.println("ruta" + " " + user.getRol().toLowerCase());
+            FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("user", user);
+            return user.getRol() + "/inicio.xhtml?faces-redirect=true";
+        } else {
             return "index.xhtml?faces-redirect=true";
         }
     }
 
+    /**
+     * Varialbe get username
+     * @return 
+     */
     public String getUsername() {
         return username;
     }
 
+    /**
+     * Varialbe set username
+     * @param username
+     */
     public void setUsername(String username) {
         this.username = username;
     }
 
+    /**
+     * Varialbe get contraseña
+     * @return 
+     */
     public String getPass() {
         return pass;
     }
 
+    /**
+     * Varialbe set contraseña
+     * @param pass
+     */
     public void setPass(String pass) {
         this.pass = pass;
     }
 
-   
-
-    
-    
-    
-    
 }

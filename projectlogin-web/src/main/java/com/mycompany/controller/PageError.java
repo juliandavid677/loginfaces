@@ -11,8 +11,8 @@ import javax.enterprise.context.Dependent;
 import javax.enterprise.context.SessionScoped;
 
 /**
- *
- * @author DaveHell
+ * @author Julián Parra 
+ * @author Germán García
  */
 @Named
 @SessionScoped
@@ -23,19 +23,29 @@ public class PageError implements Serializable{
      */
     public PageError() {
     }
-    
+    /**
+     * Varialbe privada message
+     */
     private String message;
-
+    /**
+     * Varialbe get  message
+     * @return 
+     */
     public String getMessage() {
         return message;
     }
-
+    /**
+     * Varialbe set  message
+     * @param message
+     */
     public void setMessage(String message) {
         this.message = message;
     }
+    /**
+     * Metodo de Navegacion
+     */
     public String navigate() {
-        // Assume an exception has been thrown by some business logic
         System.out.println(10 / 0);
-        return "login";
+        return "index";
     }
 }

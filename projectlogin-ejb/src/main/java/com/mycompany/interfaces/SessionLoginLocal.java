@@ -9,11 +9,20 @@ import com.mycompany.dto.User;
 import javax.ejb.Local;
 
 /**
- *
- * @author DaveHell
+ * @author Julián Parra
+ * @author Germán García
  */
 @Local
 public interface SessionLoginLocal {
+    /**
+     * Llamado del metodo agregar usuarrios
+     */
     public void agregarUsuarios();
+    /**
+     * Paso de datos del metodo obtenerUsuario
+     * @param username
+     * @param pass
+     * @return 
+     */
     public User obtenerUsuario(String username, String pass);
 }

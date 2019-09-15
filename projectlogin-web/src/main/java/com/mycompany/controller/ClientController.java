@@ -14,20 +14,24 @@ import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 
 /**
- *
- * @author DaveHell
+ * @author Julián Parra
+ * @author Germán García
  */
 @Named
 @SessionScoped
 public class ClientController implements Serializable{
-
+    /**
+     * Varialbe para llamar a la clase User del ejb
+     */
     private User user;
     /**
      * Creates a new instance of ClientController
      */
     public ClientController() {
     }
-    
+    /**
+     * Clase para validar el ingreso de session
+     */
     public void validarSesion() {
         try {
             FacesContext faces = FacesContext.getCurrentInstance();
@@ -52,16 +56,29 @@ public class ClientController implements Serializable{
 
         }
     }
+    /**
+     * Clase para cerrar session
+     *
+     * @return
+     */
     public String cerrarSesion(){
         FacesContext.getCurrentInstance().getExternalContext().invalidateSession();
         System.out.println("session cerrada");
         return "/index.xhtml?faces-redirect=true";
     }
-
+    /**
+     * Get del metodo user
+     *
+     * @return
+     */
     public User getUser() {
         return user;
     }
-
+    /**
+     * Set del metodo User
+     *
+     * @param user
+     */
     public void setUser(User user) {
         this.user = user;
     }
