@@ -5,13 +5,17 @@
  */
 package com.mycompany.controller;
 
-import com.mycompany.dto.User;
+import com.mycompany.dto.DTOCuenta;
+import com.mycompany.dto.DTOInversor;
+import com.mycompany.dto.DTOUser;
 import java.io.Serializable;
+import javax.ejb.EJB;
 import javax.inject.Named;
 import javax.enterprise.context.Dependent;
 import javax.enterprise.context.SessionScoped;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
+import com.mycompany.interfaces.IInversorFacade;
 
 /**
  * @author Julián Parra
@@ -20,11 +24,14 @@ import javax.faces.context.FacesContext;
 @Named
 @SessionScoped
 public class AdministradorController implements Serializable {
-
+    
+    @EJB
+    IInversorFacade inversorCon;
+    
     /**
      * Varialbe para llamar a la clase User del ejb
      */
-    private User user;
+    private DTOUser user;
 
     /**
      * Creates a new instance of AdministradorController
@@ -38,13 +45,13 @@ public class AdministradorController implements Serializable {
     public void validarSesion() {
         try {
             FacesContext faces = FacesContext.getCurrentInstance();
-            User usuario = (User) faces.getExternalContext().getSessionMap().get("user");
+            DTOUser usuario = (DTOUser) faces.getExternalContext().getSessionMap().get("user");
             if (usuario == null) {
                 FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error",
-                        "Está tratando de ingresar violentamente al sitio.");
+                        "Está tratando de ingresar de forma erronea al sitio.");
                 faces.addMessage(null, msg);
                 faces.getExternalContext().getFlash().setKeepMessages(true);
-                faces.getExternalContext().redirect("/projectlogin-web/faces/index.xhtml");
+                faces.getExternalContext().redirect("/projectlogin-web/faces/error.xhtml");
             } else if (!usuario.getRol().equals("admin")) {
                 FacesContext context = FacesContext.getCurrentInstance();
                 FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error",
@@ -69,13 +76,68 @@ public class AdministradorController implements Serializable {
         System.out.println("session cerrada");
         return "/index.xhtml?faces-redirect=true";
     }
-
+    /**
+     * Varialbe nombre inversor
+     */
+    private String nombreInversor;
+    /**
+     * Varialbe para cuenta
+     */
+    private String cuenta;
+    /**
+     * Get variable cuenta
+     *
+     * @return
+     */
+    public String getNombreInversor() {
+        return nombreInversor;
+    }
+    /**
+     * Set variable 
+     *
+     * @param nombreInversor
+     */
+    public void setNombreInversor(String nombreInversor) {
+        this.nombreInversor = nombreInversor;
+    }
+    /**
+     * Get variable cuenta
+     *
+     * @return
+     */
+    public String getCuenta() {
+        return cuenta;
+    }
+    /**
+     * Set variable 
+     *
+     * @param cuenta
+     */
+    public void setCuenta(String cuenta) {
+        this.cuenta = cuenta;
+    }
+    /**
+     * Metodo para agregar los inversores y las cuentas
+     *
+     */
+    public void agregarInversor(){
+        DTOInversor dtoinversor = new DTOInversor();
+        DTOCuenta dtocuenta = new DTOCuenta();
+        dtoinversor.setNombreInversor(nombreInversor);
+        dtocuenta.setNumeroCuenta(cuenta);
+        inversorCon.crearInversor(dtoinversor, dtocuenta);
+        FacesContext context = FacesContext.getCurrentInstance();
+            context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Agregado", 
+            "Inversor " + nombreInversor + "Agregado con Exito!"));
+        
+    }
+    
     /**
      * Get del metodo user
      *
      * @return
      */
-    public User getUser() {
+    public DTOUser getUser() {
         return user;
     }
 
@@ -84,7 +146,7 @@ public class AdministradorController implements Serializable {
      *
      * @param user
      */
-    public void setUser(User user) {
+    public void setUser(DTOUser user) {
         this.user = user;
     }
 

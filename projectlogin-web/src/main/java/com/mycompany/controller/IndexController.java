@@ -5,8 +5,9 @@
  */
 package com.mycompany.controller;
 
-import com.mycompany.dto.User;
-import com.mycompany.interfaces.SessionLoginLocal;
+import com.mycompany.dto.DTOUser;
+import com.mycompany.interfaces.IUsuarioFacade;
+import com.mycompany.interfaces.ISessionLogin;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -27,7 +28,7 @@ public class IndexController implements Serializable {
     /**
      * Varialbe de la lista listaUsuarios
      */
-    private final List<User> listaUsuarios;
+    private final List<DTOUser> listaUsuarios;
     /**
      * Varialbe privada de username
      */
@@ -40,7 +41,10 @@ public class IndexController implements Serializable {
      * Variable de conexion a la interfaz de ejb
      */
     @EJB
-    SessionLoginLocal ejb;
+    ISessionLogin ejb;
+    
+    @EJB
+    IUsuarioFacade ejbUsuario;
 
     /**
      * Creates a new instance of IndexController
@@ -55,10 +59,11 @@ public class IndexController implements Serializable {
      * @return
      */
     public String iniciarSesion() {
-        User user;
-        ejb.agregarUsuarios();
-        user = ejb.obtenerUsuario(username, pass);
+        DTOUser user;
+        user = ejbUsuario.login(username, pass); 
+        
         if (user != null) {
+            System.out.println("ento la queria");
             System.out.println("ruta" + " " + user.getRol().toLowerCase());
             FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("user", user);
             return user.getRol() + "/inicio.xhtml?faces-redirect=true";

@@ -5,7 +5,9 @@
  */
 package com.mycompany.interfaces;
 
-import com.mycompany.dto.User;
+import com.mycompany.dto.DTOUser;
+import com.mycompany.entity.Usuario;
+import java.util.List;
 import javax.ejb.Local;
 
 /**
@@ -13,16 +15,27 @@ import javax.ejb.Local;
  * @author Germán García
  */
 @Local
-public interface SessionLoginLocal {
-    /**
-     * Llamado del metodo agregar usuarrios
-     */
-    public void agregarUsuarios();
+public interface IUsuarioFacade {
+
+    void create(Usuario usuario);
+
+    void edit(Usuario usuario);
+
+    void remove(Usuario usuario);
+
+    Usuario find(Object id);
+
+    List<Usuario> findAll();
+
+    List<Usuario> findRange(int[] range);
+
+    int count();
     /**
      * Paso de datos del metodo obtenerUsuario
      * @param username
      * @param pass
      * @return 
      */
-    public User obtenerUsuario(String username, String pass);
+    DTOUser login(String username, String pass);
+    
 }

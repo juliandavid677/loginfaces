@@ -1,5 +1,5 @@
+com\mycompany\controller\ErrorController.class
 com\mycompany\controller\IndexController.class
 com\mycompany\controller\AdministradorController.class
-com\mycompany\controller\PageError.class
-com\mycompany\controller\ErrorController.class
 com\mycompany\controller\ClientController.class
+com\mycompany\controller\PageError.class

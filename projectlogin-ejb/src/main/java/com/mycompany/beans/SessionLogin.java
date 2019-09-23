@@ -5,8 +5,8 @@
  */
 package com.mycompany.beans;
 
-import com.mycompany.dto.User;
-import com.mycompany.interfaces.SessionLoginLocal;
+import com.mycompany.dto.DTOUser;
+import com.mycompany.interfaces.ISessionLogin;
 import java.util.ArrayList;
 import java.util.List;
 import javax.ejb.Stateful;
@@ -16,19 +16,19 @@ import javax.ejb.Stateful;
  * @author Germán García
  */
 @Stateful
-public class SessionLogin implements SessionLoginLocal {
+public class SessionLogin implements ISessionLogin {
     /**
      * Variable privada encapsulada para un usuario
      */
-    private User usuario1;
+    private DTOUser usuario1;
     /**
      * Variable privada encapsulada para un usuario
      */
-    private User usuario2;
+    private DTOUser usuario2;
     /**
      * Creacion de la lista
      */
-    private List<User> listaUsuarios;
+    private List<DTOUser> listaUsuarios;
     /**
      * Inicializacion de la lista
      */
@@ -40,8 +40,8 @@ public class SessionLogin implements SessionLoginLocal {
      */
     @Override
     public void agregarUsuarios() {
-        usuario1 = new User("David", "admin", "david", "12345678");
-        usuario2 = new User("German", "client", "german", "87654321");
+        //usuario1 = new DTOUser("David", "admin", "david", "12345678");
+        //usuario2 = new DTOUser("German", "client", "german", "87654321");
 
         listaUsuarios.add(usuario1);
         listaUsuarios.add(usuario2);
@@ -53,9 +53,9 @@ public class SessionLogin implements SessionLoginLocal {
      * Metodo para obtener los usuarios bajo la comparacion de datos
      */
     @Override
-    public User obtenerUsuario(String username, String pass){
+    public DTOUser obtenerUsuario(String username, String pass){
         System.out.println(listaUsuarios);
-        for (User usuario : listaUsuarios) {
+        for (DTOUser usuario : listaUsuarios) {
             if(usuario.getUsername().equals(username) && usuario.getPass().equals(pass)){
                 return usuario;
             }

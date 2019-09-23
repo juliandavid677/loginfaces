@@ -9,13 +9,29 @@
         <f:event type="preRenderView" listener="#{administradorController.validarSesion()}" />
     </h:head>
     <h:body style="background: url('../resourses/images/loginimage1.jpg');">
-        <h:form style="text-align: center">
+        <h:form id="formulario1" style="text-align: center">
             <p:panel header="#{msg.msgBienvenida}">
                 <h1>#{administradorController.user.rol} <br></br> #{administradorController.user.nombre}</h1>
                 
                 <p:commandButton value="#{msg.btnCerrar}" action="#{administradorController.cerrarSesion()}" />
             </p:panel>
+            <p:panel header="#{msg.lblTituloCuenta}" style="text-align: center">
+                <p:growl id="growl1" showDetail="true"></p:growl>
+                <p:outputLabel for="inversor" value="#{msg.lblInversor}" />                    
+                    <p:inputText id="inversor" value="#{administradorController.nombreInversor}" required="true" />
+                    <p:message for="inversor" showDetail="true"/>
+                    <br></br>
+                
+                    <p:outputLabel for="cuenta" value="#{msg.lblCuenta}" />
+                    <p:inputText id="cuenta" value="#{administradorController.cuenta}" required="true" />
+                    <p:message for="cuenta" showDetail="true"/>
+                 
+                <p:separator/>
+                <p:commandButton value="#{msg.btnGuardarDatos}" action="#{administradorController.agregarInversor()}" update=":formulario1, :formulario1:growl1" style="background-color: green"  />
+            </p:panel>
         </h:form>
+        
+       
     </h:body>
 </html>
 

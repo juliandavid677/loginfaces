@@ -5,7 +5,7 @@
  */
 package com.mycompany.controller;
 
-import com.mycompany.dto.User;
+import com.mycompany.dto.DTOUser;
 import java.io.Serializable;
 import javax.inject.Named;
 import javax.enterprise.context.Dependent;
@@ -23,7 +23,7 @@ public class ClientController implements Serializable{
     /**
      * Varialbe para llamar a la clase User del ejb
      */
-    private User user;
+    private DTOUser user;
     /**
      * Creates a new instance of ClientController
      */
@@ -35,7 +35,7 @@ public class ClientController implements Serializable{
     public void validarSesion() {
         try {
             FacesContext faces = FacesContext.getCurrentInstance();
-            User usuario = (User) faces.getExternalContext().getSessionMap().get("user");
+            DTOUser usuario = (DTOUser) faces.getExternalContext().getSessionMap().get("user");
             if (usuario == null) {
                 FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error",
                         "Inicio de session incorrecto.");
@@ -71,7 +71,7 @@ public class ClientController implements Serializable{
      *
      * @return
      */
-    public User getUser() {
+    public DTOUser getUser() {
         return user;
     }
     /**
@@ -79,7 +79,7 @@ public class ClientController implements Serializable{
      *
      * @param user
      */
-    public void setUser(User user) {
+    public void setUser(DTOUser user) {
         this.user = user;
     }
     

@@ -11,7 +11,20 @@ import java.io.Serializable;
  * @author Julián Parra
  * @author Germán García
  */
-public class User implements Serializable{
+public class DTOUser implements Serializable {
+
+    /**
+     * Variable id user
+     */
+    private int id;
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
     /**
      * Varialbe privada de nombre
      */
@@ -23,80 +36,99 @@ public class User implements Serializable{
     /**
      * Varialbe privada de username
      */
-    private String username;
+    private String user_name;
     /**
      * Varialbe privada de pass
      */
     private String pass;
+
     /**
      * Varialbe getNombre
-     * @return 
+     *
+     * @return
      */
     public String getNombre() {
         return nombre;
     }
+
     /**
      * Varialbe setNombre
+     *
      * @param nombre
      */
     public void setNombre(String nombre) {
         this.nombre = nombre;
     }
+
     /**
      * Varialbe getRol
-     * @return 
+     *
+     * @return
      */
     public String getRol() {
         return rol;
     }
+
     /**
      * Varialbe setRol
+     *
      * @param rol
      */
     public void setRol(String rol) {
         this.rol = rol;
     }
+
     /**
      * Varialbe getUsername
-     * @return 
+     *
+     * @return
      */
     public String getUsername() {
-        return username;
+        return user_name;
     }
+
     /**
      * Varialbe setUsername
+     *
      * @param username
      */
     public void setUsername(String username) {
-        this.username = username;
+        this.user_name = username;
     }
+
     /**
      * Varialbe getPass
-     * @return 
+     *
+     * @return
      */
     public String getPass() {
         return pass;
     }
+
     /**
      * Varialbe setPass
+     *
      * @param pass
      */
     public void setPass(String pass) {
         this.pass = pass;
     }
+
     /**
      * Metodo Constructor
+     *
+     * @param id
      * @param nombre
      * @param rol
-     * @param username
+     * @param user_name
      * @param pass
      */
-    public User(String nombre, String rol, String username, String pass) {
+    public DTOUser(int id, String nombre, String rol, String user_name, String pass) {
+        this.id = id;
         this.nombre = nombre;
         this.rol = rol;
-        this.username = username;
+        this.user_name = user_name;
         this.pass = pass;
     }
-    
-    
+
 }
